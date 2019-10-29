@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Trabalho Dispositivos Móveis</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="km_s_rodados">KM\'s Rodados:</string>
+    <string name="efici_ncia">Eficiência:</string>
+    <string name="VOLTAR">VOLTAR</string>
 </resources>
