@@ -13,12 +13,12 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private List<String> mData;
+    private List<Abastecimento> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // dados são passados pelo construtor
-    RecyclerViewAdapter(Context context, List<String> data) {
+    RecyclerViewAdapter(Context context, List<Abastecimento> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -34,8 +34,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // passa os dados para seu respectivo TextView
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        Abastecimento abastecimento = mData.get(position);
+        holder.myTextView.setText(abastecimento.getPosto());
+        holder.myTextView2.setText(String.valueOf(abastecimento.getValor()));
     }
 
 
@@ -48,10 +49,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
+        TextView myTextView2;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvAnimalName);
+            myTextView = itemView.findViewById(R.id.tvPosto);
+            myTextView2 = itemView.findViewById(R.id.tvValor);
             itemView.setOnClickListener(this);
         }
 
@@ -62,7 +65,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     // convenience method for getting data at click position
-    String getItem(int id) {
+    Abastecimento getItem(int id) {
         return mData.get(id);
     }
 
