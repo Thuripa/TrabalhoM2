@@ -4,4 +4,9 @@
     <string name="km_s_rodados">KM\'s Rodados:</string>
     <string name="efici_ncia">Eficiência:</string>
     <string name="VOLTAR">VOLTAR</string>
+    <string name="novo_abastecimento">Novo Abastecimento</string>
+    <string name="tvnovoposto">tvNovoPosto</string>
+    <string name="postoForm">Posto:</string>
+    <string name="valorForm">Valor:</string>
+    <string name="ADICIONAR">ADICIONAR</string>
 </resources>
