@@ -16,50 +16,36 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import io.realm.OrderedRealmCollection;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
 
     RecyclerViewAdapter adapter;
     Button btnDashboard;
     FloatingActionButton fabBtnNovo;
-    ArrayList<Abastecimento> dados = new ArrayList<>();
+    OrderedRealmCollection<Abastecimento> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Popula Dados
-
-        dados.add(new Abastecimento("Shell  ", 53.60f));
-        dados.add(new Abastecimento("Petrobras  ", 70.00f));
-        dados.add(new Abastecimento("Ipiranga   ", 54.80f));
-        dados.add(new Abastecimento("Shell  ", 63.75f));
-        dados.add(new Abastecimento("Shell  ", 53.60f));
-        dados.add(new Abastecimento("Petrobras  ", 70.00f));
-        dados.add(new Abastecimento("Ipiranga   ", 54.80f));
-        dados.add(new Abastecimento("Shell  ", 63.75f));
-        dados.add(new Abastecimento("Shell  ", 53.60f));
-        dados.add(new Abastecimento("Petrobras  ", 70.00f));
-        dados.add(new Abastecimento("Ipiranga   ", 54.80f));
-        dados.add(new Abastecimento("Shell  ", 63.75f));
-        dados.add(new Abastecimento("Shell  ", 53.60f));
-        dados.add(new Abastecimento("Petrobras  ", 70.00f));
-        dados.add(new Abastecimento("Ipiranga   ", 54.80f));
-        dados.add(new Abastecimento("Shell  ", 63.75f));
-        dados.add(new Abastecimento("Shell  ", 53.60f));
-        dados.add(new Abastecimento("Petrobras  ", 70.00f));
-        dados.add(new Abastecimento("Ipiranga   ", 54.80f));
-        dados.add(new Abastecimento("Shell  ", 63.75f));
-        dados.add(new Abastecimento("Shell  ", 53.60f));
-        dados.add(new Abastecimento("Petrobras  ", 70.00f));
-        dados.add(new Abastecimento("Ipiranga   ", 54.80f));
-        dados.add(new Abastecimento("Shell  ", 63.75f));
+        Realm.init(this);
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder()
+                .name("recycler.realm")
+                .schemaVersion(0)
+                .build();
+        Realm.setDefaultConfiguration(realmConfig);
 
 
         // seta RecyclerView
         RecyclerView recyclerView = findViewById(R.id.rvAbastecimento);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RecyclerViewAdapter(this, dados);
+
+        adapter = new RecyclerViewAdapter(data);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
@@ -117,9 +103,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     public void novoAbastecimento() {
         Intent intent = new Intent(this, EditorAbastecimento.class);
-        /*Bundle b = new Bundle();
-        b.putParcelableArrayList("key",  dados);
-        intent.putExtras(b);*/
+        Bundle b = new Bundle();
+
+        intent.putExtras(b);
         startActivity(intent);
     }
 

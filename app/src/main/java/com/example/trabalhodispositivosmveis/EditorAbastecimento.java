@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class EditorAbastecimento extends AppCompatActivity {
 
@@ -55,11 +56,15 @@ public class EditorAbastecimento extends AppCompatActivity {
 
         String posto = etPosto.getText().toString();
         float valor = Float.valueOf(etValor.getText().toString());
+        long id;
+        String uuid = UUID.randomUUID().toString();
+        id = Long.valueOf(uuid);
 
         Log.d("ALCM", "Posto Setado: "+posto);
         Log.d("ALCM", "Valor Setado: "+valor);
+        Log.d("ALCM", "UUID: "+id);
 
-        abastecimento = new Abastecimento(posto, valor);
+        abastecimento = new Abastecimento(id, posto, valor);
 
         Toast.makeText(this, "Abastecimento Criado"+abastecimento.getPosto(), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);

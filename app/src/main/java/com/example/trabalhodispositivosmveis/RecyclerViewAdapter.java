@@ -8,18 +8,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import io.realm.OrderedRealmCollection;
+import io.realm.RealmRecyclerViewAdapter;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class RecyclerViewAdapter extends RealmRecyclerViewAdapter<Abastecimento, RecyclerViewAdapter.ViewHolder> {
 
     private List<Abastecimento> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // dados são passados pelo construtor
-    RecyclerViewAdapter(Context context, List<Abastecimento> data) {
-        this.mInflater = LayoutInflater.from(context);
+
+
+    RecyclerViewAdapter(OrderedRealmCollection<Abastecimento> data) {
+        super(data, true);
         this.mData = data;
     }
 
@@ -27,8 +31,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recyclerview_linha, parent, false);
-        return new ViewHolder(view);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_linha, parent, false);
+        return new ViewHolder(itemView);
     }
 
     // passa os dados para seu respectivo TextView
@@ -64,10 +68,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    // convenience method for getting data at click position
-    Abastecimento getItem(int id) {
-        return mData.get(id);
+    @Override
+    public long getItemId(int index) {
+        //noinspection ConstantConditions
+        return getItem(index).getId();
     }
+
+
+    // convenience method for getting data at click position
+    /*Abastecimento getItem(int id) {
+        return getItem(id).getId();
+    }*/
 
     // allows clicks events to be caught
     void setClickListener(ItemClickListener itemClickListener) {

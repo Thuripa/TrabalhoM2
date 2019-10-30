@@ -3,34 +3,37 @@ package com.example.trabalhodispositivosmveis;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Abastecimento implements Parcelable {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
+
+
+public class Abastecimento extends RealmObject {
+
+
+    @PrimaryKey
+    private long id;
 
     private String posto;
     private float valor;
 
+    public Abastecimento() {
 
-    public Abastecimento(String posto, float valor) {
+    }
+
+    public Abastecimento(long id, String posto, float valor) {
+        this.setId(id);
         this.setPosto(posto);
         this.setValor(valor);
     }
 
-
-    protected Abastecimento(Parcel in) {
-        posto = in.readString();
-        valor = in.readFloat();
+    public long getId() {
+        return id;
     }
 
-    public static final Creator<Abastecimento> CREATOR = new Creator<Abastecimento>() {
-        @Override
-        public Abastecimento createFromParcel(Parcel in) {
-            return new Abastecimento(in);
-        }
-
-        @Override
-        public Abastecimento[] newArray(int size) {
-            return new Abastecimento[size];
-        }
-    };
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getPosto() {
         return posto;
@@ -48,14 +51,4 @@ public class Abastecimento implements Parcelable {
         this.valor = valor;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(posto);
-        dest.writeFloat(valor);
-    }
 }
